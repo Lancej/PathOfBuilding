@@ -221,6 +221,13 @@ the "Releases" section of the GitHub page.]])
 	self:LoadSharedItems()
 
 	self.onFrameFuncs = { }
+
+	if launch.devMode and arg and isValueInTable(arg, "--exit") then
+		-- Exit after first frame to measure startup time.
+		-- On Windows use Git Bash and run:
+		-- time ./Path\{space\}of\{space\}Building.exe "" --exit
+		self.onFrameFuncs["exit"] = function() os.exit() end
+	end
 end
 
 function main:SaveModCache()
